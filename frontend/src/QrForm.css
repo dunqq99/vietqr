@@ -1,0 +1,279 @@
+/* Toàn trang */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    background-color: #f5f7fa;
+  }
+  
+  /* Container chính, 2 cột */
+  .qr-main-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Cột form (trái) */
+  .qr-frame-container {
+    position: relative;
+    width: 295px; /* Tùy theo kích thước ảnh khung */
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .qr-frame {
+    width: 100%;
+    display: block;
+  }
+  
+  .qr-code-overlay {
+    position: absolute;
+    top: 100px;  /* Điều chỉnh để QR code rơi đúng vùng trống */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .qr-content,
+  .qr-amount,
+  .qr-amount-words {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .qr-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e53935;
+  }
+  
+  .qr-form-container {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .qr-form-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .qr-form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .qr-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .qr-form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  
+  .qr-form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Khu vực input ngân hàng + nút tìm */
+  .bank-search-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .bank-search-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+    margin: 0;
+  }
+  
+  /* Nút chung (tìm ngân hàng, tạo mã) */
+  .submit-btn {
+    border: none;
+    border-radius: 4px;
+    background-color: #047cff;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    margin: 0;
+    padding: 10px 16px;
+  }
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Cột hiển thị QR (phải) */
+  .qr-display-container {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .qr-display-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .qr-placeholder {
+    margin-top: 40px;
+    color: #999;
+    font-size: 16px;
+  }
+  
+  .qr-string {
+    margin-top: 10px;
+    word-break: break-word;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Nội dung, Số tiền, Bằng chữ */
+  .qr-content, .qr-amount, .qr-amount-words {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
+    }
+  
+  .qr-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e53935; /* ví dụ đỏ */
+  }
+  
+  /* Nút copy mờ, cách text 10px */
+  .copy-btn {
+    margin-left: 10px;
+    opacity: 0.7;
+    background-color: #ddd;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: opacity 0.2s;
+  }
+  .copy-btn:hover {
+    opacity: 1;
+    background-color: #ccc;
+  }
+  
+  /* Popup overlay */
+  .bank-search-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  /* Bên trong popup: chia header, input, list */
+  .bank-search-box {
+    background: #fff;
+    border-radius: 8px;
+    width: 800px;
+    max-height: 80vh;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header: tiêu đề + nút đóng */
+  .bank-search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+  }
+  
+  .close-button {
+    background: #999;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .close-button:hover {
+    background: #666;
+  }
+  
+  /* Ô input tìm kiếm */
+  .bank-search-input {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+  }
+  .bank-search-input input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* Khu vực danh sách scroll */
+  .bank-list-container {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .bank-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bank-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  .bank-list li:hover {
+    background-color: #f2f2f2;
+  }
+  .bank-list li:last-child {
+    border-bottom: none;
+  }
+  h1 {
+    text-align: center;
+    color: #047cff;
+  }
+  
+  
