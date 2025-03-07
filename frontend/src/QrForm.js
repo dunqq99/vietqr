@@ -138,7 +138,7 @@ function QrForm() {
 
     try {
       // 3) Gọi API với dữ liệu đã làm sạch
-      const res = await axios.post('/api/generate-qr', {
+      const res = await axios.post('http://localhost:3001/api/generate-qr', {
         bankCode,
         accountNumber: sanitizedAccountNumber,
         accountHolder: sanitizedHolder,

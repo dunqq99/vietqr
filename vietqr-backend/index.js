@@ -69,8 +69,8 @@ app.post('/api/generate-qr', async (req, res) => {
   }
 });
 
-// Chạy server trên cổng 3009
-const PORT = 3009;
+// Chạy server trên cổng 3001
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Backend đang chạy ở cổng ${PORT}`);
 });
