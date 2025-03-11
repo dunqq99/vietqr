@@ -113,11 +113,20 @@ function QrForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Sanitize tất cả dữ liệu trước khi gửi API
+        const sanitizedData = {
+            bankAccount: sanitizeInput(bankAccount),
+            userBankName: sanitizeInput(userBankName),
+            content: sanitizeInput(content),
+            amount: amount, // Không cần sanitize vì đã validate số
+            bankCode: bankCode
+        };
+
         try {
             // 1. Lấy access token
             const tokenRes = await axios.post(
                 TOKEN_URL,
-                {}, // Body rỗng
+                {},
                 {
                     headers: {
                         Authorization: BASIC_AUTH,
@@ -126,17 +135,17 @@ function QrForm() {
             );
             const accessToken = tokenRes.data.access_token;
 
-            // 2. Tạo QR code
+            // 2. Tạo QR code với dữ liệu đã được sanitize
             const qrRes = await axios.post(
                 GENERATE_URL,
                 {
-                    amount,
-                    content,
-                    bankAccount,
-                    bankCode,
-                    userBankName,
+                    amount: sanitizedData.amount,
+                    content: sanitizedData.content,
+                    bankAccount: sanitizedData.bankAccount,
+                    bankCode: sanitizedData.bankCode,
+                    userBankName: sanitizedData.userBankName,
                     transType: 'C',
-                    orderId: 'myOrderId123', // Thay đổi nếu cần
+                    orderId: 'myOrderId123',
                     sign: '',
                     qrType: '0',
                 },
@@ -204,7 +213,7 @@ function QrForm() {
                             type="text"
                             placeholder="Nhập số tài khoản"
                             value={bankAccount}
-                            onChange={(e) => setbankAccount(sanitizeInput(e.target.value))}
+                            onChange={(e) => setbankAccount(e.target.value)}
                             required
                         />
                     </div>
@@ -214,9 +223,9 @@ function QrForm() {
                         <label>Tên chủ tài khoản</label>
                         <input
                             type="text"
-                            placeholder="Nhập tên chủ tài khoản (không dấu)"
+                            placeholder="Nhập tên chủ tài khoản"
                             value={userBankName}
-                            onChange={(e) => setuserBankName(sanitizeInput(e.target.value))}
+                            onChange={(e) => setuserBankName(e.target.value)}
                             required
                         />
                     </div>
@@ -238,14 +247,14 @@ function QrForm() {
                         />
                     </div>
 
-                    {/* Nội dung thanh toán (không bắt buộc) */}
+                    {/* Nội dung thanh toán */}
                     <div className="qr-form-group">
                         <label>Nội dung thanh toán</label>
                         <input
                             type="text"
-                            placeholder="Nội dung không dấu (không bắt buộc)"
+                            placeholder="Nội dung thanh toán"
                             value={content}
-                            onChange={(e) => setContent(sanitizeInput(e.target.value))}
+                            onChange={(e) => setContent(e.target.value)}
                         />
                     </div>
 
@@ -267,7 +276,11 @@ function QrForm() {
                             className="qr-frame"
                         />
                         <div className="qr-code-overlay">
-                            <QRCodeCanvas value={qrCode} size={150} />
+                            <QRCodeCanvas 
+                                value={qrCode} 
+                                size={150}
+                                level={"H"}
+                            />
                         </div>
                         <p className="qr-content">
                             Nội dung: {content}
