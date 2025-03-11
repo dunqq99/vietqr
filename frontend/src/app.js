@@ -23,7 +23,7 @@ function App() {
               ☰
             </button>
             <div className="logo-container">
-              <img src="images/vietqr-logo.png" alt="VietQR Logo" className="logo" />
+              <img src="images/images/VietQR-logo.png" alt="VietQR Logo" className="logo" />
             </div>
             <nav className={`nav ${isMenuOpen ? 'active' : ''}`}>
               <ul className="nav-list">
